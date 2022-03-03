@@ -55,7 +55,7 @@ export default class Facebook extends Component {
             padding: "25px",
             position: 'absolute',
             zIndex: 99,
-            backgroundImage: 'linear-gradient(45deg, rgba(218, 132, 230, 0.84) 0%, rgba(179, 0, 89, 1) 83%)'
+            backgroundImage: 'linear-gradient(45deg, rgba(2,0,36,1) 0%, rgba(11,94,136,1) 94%)'
           }}
         >
           <img src={JSON.parse(localStorage.getItem('user')).picture.data.url} alt />

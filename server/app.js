@@ -18,7 +18,7 @@ app.use(body());
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 
 const db = mysql.createConnection({
-    host: '172.29.32.1',
+    host: '172.29.48.1',
     user: 'mai',
     password: '1234',
     database: 'testing'
@@ -47,7 +47,7 @@ app.put('/delete', function(req, res) {
 //edit
 app.put('/data', function(req, res) {
     var sql = 'UPDATE users SET firstname= ? , lastname = ? WHERE id = ?';
-    db.query(sql,[req.body.firstname,req.body.lastname,req.body.idkey],function (error, results) {
+    db.query(sql,[req.body.firstname,req.body.lastname,req.body.idkey,req.body.timestamp],function (error, results) {
         if(error) throw error;
         res.send(JSON.stringify(results));
     });
@@ -59,7 +59,8 @@ app.post('/data', function(req, res){
     let data = {
         id:req.body.idkey,
         firstname:req.body.firstname,
-        lastname:req.body.lastname
+        lastname:req.body.lastname,
+        email:req.body.email
     };
     let sql = 'INSERT INTO users SET ?';
     db.query(sql, data, (err, result)=>{
