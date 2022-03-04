@@ -10,6 +10,7 @@ export default class Showdata extends Component{
         super();
         this.state ={
             list:[],
+            timestamp:"",
             idkey:"",
             firstname:"",
             lastname:""
@@ -54,9 +55,11 @@ export default class Showdata extends Component{
     call=(user)=>{
         this.openModal();
         this.setState({
+            timestamp:user.timestamp,
             idkey:user.id,
             firstname:user.firstname,
-            lastname:user.lastname
+            lastname:user.lastname,
+            email:user.email
         })
     }
     handleChang = (e) => {
@@ -65,9 +68,11 @@ export default class Showdata extends Component{
         });
         let url = `https://localhost:3000/data`;
         let data = {
+            timestamp:this.state.timestamp,
             idkey:this.state.idkey,
             firstname:this.state.firstname,
-            lastname:this.state.lastname
+            lastname:this.state.lastname,
+            email:this.state.email
         }
         axios.put(url,data)
     }
@@ -75,15 +80,19 @@ export default class Showdata extends Component{
     handleClicked(){
         let url = `https://localhost:3000/data`;
         let data = {
+            timestamp:this.state.timestamp,
             idkey:this.state.idkey,
             firstname:this.state.firstname,
-            lastname:this.state.lastname
+            lastname:this.state.lastname,
+            email:this.state.email
         }
         axios.put(url,data)
         this.setState({
+            timestamp:"",
             idkey:"",
             firstname:"",
-            lastname:""
+            lastname:"",
+            email:""
         });
 	this.closeModal();
         setTimeout(()=>{this.componentDidMount()},1)
@@ -99,18 +108,22 @@ export default class Showdata extends Component{
                     <table className="table table-dark">
                         <thead>
                             <tr>
+                            <th>TimeStamp</th>
                             <th>ID</th>
                             <th>First Name</th>
                             <th>Last Name</th>
+                            <th>Email</th>
                             </tr>
                         </thead>
                         <tbody>
                                 {list.map((user) =>{
                                     return(
                                         <tr>
+                                            <td>{user.timestamp}</td>
                                             <td>{user.id}</td>
                                             <td>{user.firstname}</td>
                                             <td>{user.lastname}</td>
+                                            <td>{user.email}</td>
                                             <td><button type="button" class="btn btn-warning" onClick={()=>this.call(user)}>Edit</button></td>
                                             <td><button type="button" class="btn btn-danger"  onClick={()=>this.onDelete(user)}>Delet</button></td>
                                             <div className="box">
